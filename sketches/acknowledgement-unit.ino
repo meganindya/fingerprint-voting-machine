@@ -43,9 +43,9 @@ void loop() {
   if (activeVU)
   	voterID = listenVU();
   
-  if	  (voterID == -1)
-    digitalWrite(13, HIGH);
-  else if (voterID == 99);
+  if	  (voterID == 99);
+  else if (voterID == -1)
+    digitalWrite(13, HIGH); 
   else {
     voterPass = true;
     if (voted[voterID]) {
@@ -66,13 +66,14 @@ void loop() {
         int v = Serial.read() - (int) '0';
         //Serial.println(v);
         votes[v]++;
+        voted[voterID] = true;
         answered = true;
         
         resetStatus();
-        Serial.println("");
+        /*Serial.println("");
         Serial.print(votes[0]);
         Serial.print(" ");
-        Serial.println(votes[1]);
+        Serial.println(votes[1]);*/
   	  }
     }
   }
@@ -87,7 +88,6 @@ void activateVU() {
 
 void deactivateVU() {
   activeVU = false;
-  voterID = 99;
   digitalWrite( 9, LOW);
 }
 
@@ -106,6 +106,7 @@ int listenVU() {
     v += 2 * digitalRead(5);
     v += 4 * digitalRead(6);
     v += 8 * digitalRead(7);
+    //Serial.println(v);
     return v;
   }
   
@@ -121,8 +122,9 @@ void activateVM() {
 }
 
 void resetStatus() {
-  Serial.println("Reset");
+  //Serial.println("Reset");
   voterPass = false;
+  voterID = 99;
   
   digitalWrite(10, LOW);
   digitalWrite(11, LOW);
