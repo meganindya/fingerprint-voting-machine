@@ -51,7 +51,7 @@ void setup() {
   Wire.onReceive(receiveEvent);
 
   // lcd setup
-  lcd.begin();
+  lcd.init();
   lcd.backlight();
 
   // hardware serial setup
